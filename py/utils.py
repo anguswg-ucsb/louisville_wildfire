@@ -1,3 +1,7 @@
+# Angus Watters
+# 01/26/2023
+# Utility functions for calculatingwildfire risk raster using flame length, damage factors, and burn probability
+
 # import packages
 import numpy as np
 import rasterio as rio
@@ -9,10 +13,10 @@ import matplotlib.pyplot as plt
 from os import scandir
 
 def parse_dir(directory,urls = None):
-		filenames = []
-		for filename in os.scandir(directory):
-			filenames.append(filename.path)
-		return filenames
+        filenames = []
+        for filename in os.scandir(directory):
+            filenames.append(filename.path)
+        return filenames
 
 def damage_index(
             factor = None
@@ -61,7 +65,7 @@ def get_wildfire_risk(
         raise ValueError("Invalid 'out_epsg' argument, provide an EPSG integer code specifying the desired EPSG of the output raster")
 
     # check if out_epsg is a string or float and converts to integer 
-    if(isinstance(out_epsg, str, float)):
+    if(isinstance(out_epsg, (str, float))):
         out_epsg = int(out_epsg)
 
     # read in mask shapefile w/ geopandas
@@ -128,18 +132,3 @@ def get_wildfire_risk(
             )
         
     return risk_rast
-
-
-# path to ADF files where each flame length is within a folder
-# fl_path = "D:/louisville_wildfire/Flame_Length_Rasters"
-# files_path = [os.path.abspath(x) for x in os.listdir(fl_path)]
-# fl_dirs = [x.replace("\\", "/") for x in parse_dir(directory = fl_path)]
-# fl_files = [x.replace("\\", "/") for x in parse_dir(directory = fl_dirs)]
-# files_path = [os.path.abspath(x) for x in os.listdir(fl_path)]
-# [f for f in os.listdir(fl_path) if os.path.isfile(os.path.join(fl_path, f))]
-# x = [f.name for f in os.scandir() if f.is_file()]
-# onlyfiles = [f for f in listdir(mypath) if isfile(join(mypath, f))]
-# [f for f in listdir(dir_paths) if isfile(join(dir_paths, f))]
-# # file_names = ["/" + x + ".tif" for x in os.listdir(fl_dir)]
-# # list of flame length paths
-# # fl_paths = [dir_paths[x] + file_names[x] for x in range(len(dir_paths))]
